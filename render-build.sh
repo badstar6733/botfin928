@@ -1,3 +1,2 @@
-#!/usr/bin/env bash
-echo "📦 Installing Chromium..."
-npx puppeteer@22.6.3 install chrome
+#!/bin/bash
+echo "Nothing to build. Puppeteer 19.11.1 มี Chromium มาในตัวแล้ว"
