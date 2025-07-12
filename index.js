@@ -1,4 +1,3 @@
-// ✅ Baccarat Bot 24/7 Version (Render + Puppeteer + แนวทางจาก icon หน้าเว็บจริง)
 import puppeteer from "puppeteer";
 import sharp from "sharp";
 import fs from "fs/promises";
@@ -11,7 +10,7 @@ import fetch from "node-fetch";
 
 dotenv.config();
 
-const browserlessToken = process.env.BROWSERLESS_TOKEN; // ยังใช้ตัวแปรไว้เผื่ออนาคต
+const browserlessToken = process.env.BROWSERLESS_TOKEN;
 const telegramToken = process.env.TELEGRAM_BOT_TOKEN;
 const chatIdMap = {
   "SA gaming": process.env.CHAT_ID_SA,
@@ -82,7 +81,12 @@ async function processCamp(campName) {
   let browser;
   const startTime = Date.now();
   try {
-    browser = await puppeteer.launch({ headless: true, args: ["--no-sandbox"] });
+    browser = await puppeteer.launch({
+      headless: true,
+      args: ["--no-sandbox"],
+      // บังคับใช้ Chromium ที่มาพร้อม Puppeteer (แก้ปัญหาไม่เจอ Chrome)
+      executablePath: puppeteer.executablePath(),
+    });
     const page = await browser.newPage();
     await page.setViewport({ width: 1280, height: 800 });
     await page.goto(targetUrl, { waitUntil: "load", timeout: 45000 });
@@ -126,7 +130,12 @@ async function processCamp(campName) {
             imgs
               .filter((img) => {
                 const src = img.getAttribute("src") || "";
-                return src.includes("icon-banker") || src.includes("icon-player") || src.includes("icon-tie") || src.includes("icon-player-orange");
+                return (
+                  src.includes("icon-banker") ||
+                  src.includes("icon-player") ||
+                  src.includes("icon-tie") ||
+                  src.includes("icon-player-orange")
+                );
               })
               .slice(-10)
               .map((img) => {
@@ -208,9 +217,9 @@ http.createServer((req, res) => {
   res.end("Bot is running ✅");
 }).listen(3000);
 
-// 🔁 Self-ping ตัวเองทุก 5 นาที
+// 🔁 Self-ping ตัวเองทุก 5 นาที (ปรับ URL ให้เป็นของคุณเอง)
 setInterval(() => {
-  fetch("https://botfin928.onrender.com")
+  fetch("https://your-replit-or-render-url-here/")
     .then(() => console.log("📡 Self-ping OK"))
     .catch((err) => console.error("❌ Self-ping failed", err.message));
 }, 300000);
