@@ -210,7 +210,7 @@ http.createServer((req, res) => {
 
 // 🔁 Self-ping ตัวเองทุก 5 นาที
 setInterval(() => {
-  fetch("https://08cd7a74-8342-4043-8f89-54c2b80ec3cc-00-3mqn3yzo42h0g.sisko.replit.dev/")
+  fetch("https://botfin928.onrender.com")
     .then(() => console.log("📡 Self-ping OK"))
     .catch((err) => console.error("❌ Self-ping failed", err.message));
 }, 300000);
