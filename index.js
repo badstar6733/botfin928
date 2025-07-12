@@ -215,4 +215,6 @@ http.createServer((req, res) => {
 // 🔁 Self-ping ตัวเองทุก 5 นาที
 setInterval(() => {
   fetch(process.env.SELF_URL || "https://your-app-name.onrender.com")
-    .t
+    .then(() => console.log("📡 Self-ping OK"))
+    .catch((err) => console.error("❌ Self-ping failed", err.message));
+}, 300000);
