@@ -1,3 +1,3 @@
 #!/bin/bash
-echo "No build step needed"
-
+echo "📦 Installing Chromium manually..."
+npx puppeteer browsers install chrome
